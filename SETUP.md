@@ -25,11 +25,26 @@ your-project/
         ├── plan-survey.js
         ├── plan-feature.js
         ├── project-rules.md
-        └── backlog.md
+        ├── backlog.md
+        ├── fix-procedure.md
+        ├── verification.md
+        └── README.md
 ```
 
 **既に `CLAUDE.md` がある場合**は上書きせず、テンプレートの
 「まず読むもの」と「実装のたびに守ること」の節だけを追記してください。
+`.claude/workflows/fix-procedure.md` と `verification.md` は CLAUDE.md から参照されるので、必ず一緒に置いてください。
+
+### 前提のスキル
+
+CLAUDE.md と `fix-procedure.md` は、次のスキルがある前提で書いています。**このテンプレートには含まれません。**
+無い環境では、同じ役割の手段に置き換えて手順を使ってください。
+
+| スキル | 使う場面 | 役割 |
+|---|---|---|
+| `review-full` | step を終えたとき（CLAUDE.md「### 6.」(7)） | 固定点以降の変更を、規約・仕様・ロジックのバグ・セキュリティの観点でまとめてレビューする |
+| `code-review` | PR に push する前（CLAUDE.md「### 7.」） | PR の差分のロジックのバグを探す |
+| `diagnose` | 原因が曖昧な指摘・症状（`fix-procedure.md` 手順2） | 赤になる再現 → 仮説 → 計装で原因を突き止める |
 
 ---
 
@@ -140,7 +155,7 @@ UI が無いなら実行時に外します。
 
 資料に**書かれていることだけ**を写します。実装方法は書きません。
 
-**機能キーの表は必ず埋めてください。** `/plan-feature <キー>` で使います。
+**機能キーの表は必ず埋めてください。** `/plan-feature <機能キー>` で使います。
 
 ---
 
@@ -159,7 +174,7 @@ UI が無いなら実行時に外します。
 `feature-order.md` の `blocking_questions` に答えてから、機能ごとの計画に進みます。
 
 ```
-/plan-feature <キー>
+/plan-feature <機能キー>
 ```
 
 ---
@@ -175,6 +190,7 @@ UI が無いなら実行時に外します。
 - [ ] project-rules.md の「出荷の制約」「テストの現実」「触ってはいけない決定」を埋めた
 - [ ] backlog.md の機能キー表を埋めた
 - [ ] CLAUDE.md の1行目・概要・「特に事故が多い点」を埋めた
+- [ ] verification.md の「（このプロジェクトの…）」を埋めた（テストのコマンド・データの置き場）
 - [ ] docs/plan/ を .gitignore していないことを確認した（計画はコミットする）
 - [ ] project-rules.md に機微情報を書くなら、リポジトリが private であることを確認した
 ```
